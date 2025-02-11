@@ -55,11 +55,20 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD_project  }}
 
+      - name: Get latest version from Docker Hub and increment it
+        run: |
+          latest_version=$(curl -s https://hub.docker.com/v2/repositories/mustafa3li/project/tags | jq -r '.results[].name' | grep -E '^version_[0-9]+$' | sort -V | tail -n1)
+
+          if [[ -z "$latest_version" ]]; then
+            new_version="version_1"
+          else
+            new_version="version_$(( ${latest_version#version_} + 1 ))"
+          fi
+
+          echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
+          echo "Building Docker image with tag: $new_version"
+
       - name: Build And Push Docker image on Docker Hub
         run: |
-          export DOCKER_BUILDKIT=1
-          IMAGE_TAG=${{ github.sha }}
-
-          docker build -t mustafa3li/project:latest -t mustafa3li/project:$IMAGE_TAG .
-          docker push mustafa3li/project:latest
-          docker push mustafa3li/project:$IMAGE_TAG
+          docker build -t mustafa3li/project:${{ env.NEW_VERSION }} .
+          docker push mustafa3li/project:${{ env.NEW_VERSION }}
