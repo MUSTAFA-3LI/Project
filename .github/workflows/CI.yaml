@@ -70,5 +70,5 @@ jobs:
 
       - name: Build And Push Docker image on Docker Hub
         run: |
-          docker build -t mustafa3li/project:${{ github.env.NEW_VERSION }} .
-          docker push mustafa3li/project:${{ github.env.NEW_VERSION }}
+          docker build -t mustafa3li/project:${{ env.NEW_VERSION }} .
+          docker push mustafa3li/project:${{ env.NEW_VERSION }}
