@@ -46,11 +46,9 @@ jobs:
         run: |
           # Remove any conflicting containerd packages
           sudo apt-get remove -y containerd.io containerd runc || true
-
           # Install Docker using the official convenience script
           curl -fsSL https://get.docker.com -o get-docker.sh
           sudo sh get-docker.sh
-
           # Install Docker Compose
           sudo apt-get update
           sudo apt-get install -y docker-compose
@@ -98,17 +96,28 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD_PROJECT }}
 
       - name: Get latest version from Docker Hub and increment it
+        id: version
         run: |
+          # Fetch all tags from Docker Hub
           latest_version=$(curl -s https://hub.docker.com/v2/repositories/mustafa3li/project/tags | jq -r '.results[].name' | grep -E '^version_[0-9]+$' | sort -V | tail -n1)
           if [[ -z "$latest_version" ]]; then
             new_version="version_1"
           else
-            new_version="version_$(( ${latest_version#version_} + 1 ))"
+            current_version_number=${latest_version#version_}
+            new_version="version_$(( current_version_number + 1 ))"
           fi
           echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
           echo "Building Docker image with tag: $new_version"
 
-      - name: Build and Push Docker image on Docker Hub
+      - name: Build Docker image
         run: |
           docker build -t mustafa3li/project:${{ env.NEW_VERSION }} .
+
+      - name: Tag Docker image as latest
+        run: |
+          docker tag mustafa3li/project:${{ env.NEW_VERSION }} mustafa3li/project:latest
+
+      - name: Push Docker image with both tags
+        run: |
           docker push mustafa3li/project:${{ env.NEW_VERSION }}
+          docker push mustafa3li/project:latest
