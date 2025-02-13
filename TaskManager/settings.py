@@ -27,7 +27,13 @@ SECRET_KEY = 'django-insecure-x^&=)!u5jb0p7x89+7^$=er$@u-y8y))+az11#!pe5#5#n3!)l
 DEBUG = True
 
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '0.0.0.0,localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = [
+    'taskmanager.example.com',  # Your custom domain
+    '192.168.49.2',             # Minikube IP
+    'localhost',                # Local development
+    '127.0.0.1',                # Local development
+    '0.0.0.0',                  # Docker container
+]
 
 
 # Application definition
