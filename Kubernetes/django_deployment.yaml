@@ -15,7 +15,8 @@ spec:
     spec:
       containers:
       - name: django
-        image: mustafa3li/backend:v1
+        image: mustafa3li/project:latest
+        imagePullPolicy: Always
         env:
         - name: DATABASE_HOST
           value: mysql.taskmanager.svc.cluster.local
