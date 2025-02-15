@@ -8,7 +8,7 @@ metadata:
 spec:
   rules:
   - host: taskmanager.example.com        ## http://taskmanager.example.com/
-    http:                                ## http://taskmanager.example.com:31281/
+    http:                                ## http://taskmanager.example.com:30000/
       paths:
       - path: /
         pathType: Prefix
@@ -25,4 +25,4 @@ spec:
           service:
             name: django
             port:
-              number: 8000               ## http://192.168.49.2:31281/
+              number: 8000               ## http://192.168.49.2:30000/
