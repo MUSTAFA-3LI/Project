@@ -1,0 +1,16 @@
+# Ignore secret manifest files
+db_secret.yaml
+
+# Ignore all YAML files containing "secret" in their name
+*secret*.yaml
+
+# Ignore all files with sensitive extensions (optional)
+*.key
+*.pem
+*.crt
+*.env
+
+# Ignore temporary or editor-specific files
+*.tmp
+*.swp
+*.log
