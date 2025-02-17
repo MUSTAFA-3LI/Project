@@ -14,7 +14,7 @@ services:
       - mysql_data:/var/lib/mysql
 
   web:
-    image: mustafa3li/backend:v1
+    image: mustafa3li/project:latest
     container_name: django_app
     restart: always
     depends_on:
