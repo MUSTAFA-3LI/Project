@@ -33,6 +33,7 @@ ALLOWED_HOSTS = [
     'localhost',                # Local development
     '127.0.0.1',                # Local development
     '0.0.0.0',                  # Docker container
+    '.compute-1.amazonaws.com', # AWS EC2 instances
 ]
 
 
