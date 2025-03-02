@@ -26,7 +26,6 @@ SECRET_KEY = 'django-insecure-x^&=)!u5jb0p7x89+7^$=er$@u-y8y))+az11#!pe5#5#n3!)l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
 ALLOWED_HOSTS = ['*']
 
 
@@ -41,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'users',
+    'tasks',
 ]
 
 MIDDLEWARE = [
@@ -122,7 +122,15 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'TaskManager/static')]
 
+
+
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# media active
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # path of your static file
+MEDIA_URL = '/media/'  # then go to url of project to continue
