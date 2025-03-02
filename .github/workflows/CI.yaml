@@ -111,7 +111,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t mustafa3li/project:${{ env.NEW_VERSION }} .
+          docker build --no-cache -t mustafa3li/project:${{ env.NEW_VERSION }} .
 
       - name: Tag Docker image as latest
         run: |
